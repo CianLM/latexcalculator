@@ -1,4 +1,4 @@
-# \LaTeX Calculator
+# LaTeX Calculator
 
 Using React, KaTeX and evaluatex to provide a LaTeX calculator with a user interface.
 
