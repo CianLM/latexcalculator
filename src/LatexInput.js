@@ -105,7 +105,7 @@ class LatexInput extends React.Component {
             
             <Typography variant="h6" component="h6">Variables Input:</Typography>
 
-            <form>
+            <form noValidate autoComplete="off">
             <TextField
                     id="latexvariables"
                     label="LaTeX Variables"
