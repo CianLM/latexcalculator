@@ -12,8 +12,8 @@ class LatexInput extends React.Component {
         this.state = {
             value: String.raw`\sin \left( \frac{\pi}{2} \right) + \sqrt{ \alpha \cdot b}`,//String.raw`u,v \in V \implies u + v \in V`,
             output: '4',
-            variableinput: '\\alpha = 1.5\nb = 6',
-            variables: {alpha:1.5, b:10},
+            variableinput: '\\alpha = \\frac{3}{2}\nb = 2*3',
+            variables: {alpha:1.5, b:6},
         }
     }
 
@@ -32,7 +32,14 @@ class LatexInput extends React.Component {
           let obj = {}
           str.split("\n").forEach(e => {
               let eq = e.split("=")
-              obj[eq[0].split("\\").join('')] = parseFloat(eq[1])
+
+              try {
+              obj[eq[0].split("\\").join('')] = evaluatex(eq[1],{},{latex: true})()
+              console.log(eq[1])
+              }
+              catch {
+                  obj[eq[0].split("\\").join('')] = 0
+              }
           });
 
           this.setState({
@@ -113,7 +120,9 @@ class LatexInput extends React.Component {
                 />
             </form>
 
-            <BlockMath math={JSON.stringify(this.state.variables).split("\"").join('').split("\\n").join().replace(/\\\\/g,"\\")} />
+            <BlockMath math={JSON.stringify(this.state.variables).split("\"").join('').split("\\n").join()
+            // For LaTeX rendering of the variables input
+            .replace(/(alpha|beta|gamma|delta|epsilon|zeta|eta|theta|iota|kappa|lambda|mu|nu|xi|pi|rho|sigma|tau|phi|chi|psi|omega)/g,'\\$1')} />
             
             {/* If the expression can be evaluated, the input+answer will be displayed, otherwise just the input.  */}
             <Typography variant="h6" component="h6"><InlineMath math="\LaTeX" /> Calculator<InlineMath math="^2" /> Output:</Typography>

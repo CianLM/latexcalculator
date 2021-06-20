@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site": "latexcalculator",
     "public": "build",
     "ignore": [
       "firebase.json",
