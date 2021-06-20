@@ -1,9 +1,9 @@
 import React from 'react'
 import TextField from '@material-ui/core/TextField'
 import { Typography } from '@material-ui/core';
-import 'katex/dist/katex.min.css';
+//import 'katex/dist/katex.min.css';
 import { InlineMath, BlockMath } from 'react-katex';
-import evaluatex from 'evaluatex'
+import evaluatex from 'evaluatex/dist/evaluatex'
 
 
 class LatexInput extends React.Component {
@@ -11,9 +11,9 @@ class LatexInput extends React.Component {
         super(props);
         this.state = {
             value: String.raw`\sin \left( \frac{\pi}{2} \right) + \sqrt{ \alpha \cdot b}`,//String.raw`u,v \in V \implies u + v \in V`,
-            output: '6',
-            variableinput: '\\alpha = 1.5\nb = 6',
-            variables: {a:2.5, b:10},
+            output: '4',
+            variableinput: '\\alpha = \\frac{3}{2}\nb = 2*3',
+            variables: {alpha:1.5, b:6},
         }
     }
 
@@ -32,7 +32,14 @@ class LatexInput extends React.Component {
           let obj = {}
           str.split("\n").forEach(e => {
               let eq = e.split("=")
-              obj[eq[0].split("\\").join('')] = parseFloat(eq[1])
+
+              try {
+              obj[eq[0].split("\\").join('')] = evaluatex(eq[1],{},{latex: true})()
+              console.log(eq[1])
+              }
+              catch {
+                  obj[eq[0].split("\\").join('')] = 0
+              }
           });
 
           this.setState({
@@ -113,7 +120,9 @@ class LatexInput extends React.Component {
                 />
             </form>
 
-            <BlockMath math={JSON.stringify(this.state.variables).split("\"").join('').split("\\n").join().replace(/\\\\/g,"\\")} />
+            <BlockMath math={JSON.stringify(this.state.variables).split("\"").join('').split("\\n").join()
+            // For LaTeX rendering of the variables input
+            .replace(/(alpha|beta|gamma|delta|epsilon|zeta|eta|theta|iota|kappa|lambda|mu|nu|xi|pi|rho|sigma|tau|phi|chi|psi|omega)/g,'\\$1')} />
             
             {/* If the expression can be evaluated, the input+answer will be displayed, otherwise just the input.  */}
             <Typography variant="h6" component="h6"><InlineMath math="\LaTeX" /> Calculator<InlineMath math="^2" /> Output:</Typography>

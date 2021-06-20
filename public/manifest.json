@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "LaTeX Calculator",
+  "name": "LaTeX Calculator",
   "icons": [
     {
       "src": "favicon.ico",
