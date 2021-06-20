@@ -1,4 +1,4 @@
-# [LaTeX Calculator](latexcalculator.web.app)
+# [LaTeX Calculator](https://latexcalculator.web.app)
 
 Using React, KaTeX and evaluatex to provide a LaTeX calculator with a user interface.
 
