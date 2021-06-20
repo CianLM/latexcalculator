@@ -1,9 +1,9 @@
 import React from 'react'
 import TextField from '@material-ui/core/TextField'
 import { Typography } from '@material-ui/core';
-import 'katex/dist/katex.min.css';
+//import 'katex/dist/katex.min.css';
 import { InlineMath, BlockMath } from 'react-katex';
-import evaluatex from 'evaluatex'
+import evaluatex from 'evaluatex/dist/evaluatex'
 
 
 class LatexInput extends React.Component {
@@ -11,9 +11,9 @@ class LatexInput extends React.Component {
         super(props);
         this.state = {
             value: String.raw`\sin \left( \frac{\pi}{2} \right) + \sqrt{ \alpha \cdot b}`,//String.raw`u,v \in V \implies u + v \in V`,
-            output: '6',
+            output: '4',
             variableinput: '\\alpha = 1.5\nb = 6',
-            variables: {a:2.5, b:10},
+            variables: {alpha:1.5, b:10},
         }
     }
 
