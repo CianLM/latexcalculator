@@ -38,7 +38,7 @@ class LatexInput extends React.Component {
               console.log(eq[1])
               }
               catch {
-                  obj[eq[0].split("\\").join('')] = 0
+                  obj[eq[0].split("\\").join('')] = 'Error'
               }
           });
 
